@@ -7,12 +7,15 @@ const request = require('request');
 const breed = process.argv[2];
 
 request(`https://api.thecatapi.com/v1/breedss/search?q=${breed}`, (error, response, body) => {
+  // if 404
   if (response.statusCode === 404) {
     console.log(`Status Code: ${response && response.statusCode}, Request Failed.`); // Print the response status code if a response was received
     return;
   }
+  // parse api string array-obj
   const parsedBreed = JSON.parse(body); // puts it into JSON object
 
+  // if breed not found, return err
   if (parsedBreed[0].name !== breed) {
     console.log(`Error: ${breed} not found as breed.`); // Print the error if one occurred
     return;
