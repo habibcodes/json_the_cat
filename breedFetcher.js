@@ -22,13 +22,14 @@ const fetchBreedDescription = (breedName, callback) => {
     }
     // parse api string array-obj
     const parsedBreed = JSON.parse(body); // puts it into JSON object
+    // console.log(parsedBreed);
 
     // if breed not found, return err
-    if (parsedBreed[0].name !== breedName) {
-      callback(`Error: ${breedName} not found as breed.`, null); // Print the error if one occurred
+    if (!parsedBreed[0]) {
+      callback(`Error: ${breedName} not found.`, null); // Print the error if one occurred
       return;
     }
-        
+
     // ######## --> success
     // callback (parsedBreed);
     callback(null, `The breed description for ${breedName}: ${parsedBreed[0].description}`);
